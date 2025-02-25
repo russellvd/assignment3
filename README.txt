@@ -42,3 +42,4 @@ Several examples of scene graphs have been given, in the scenegraphmodels folder
 4. face-hierarchy-with-copy-commands.txt: shows an example of a command that allows one to create a copy of part of a scene graph. See towards the end of this file.
 
 5. two-humanoids.txt: shows an example of how one command can be used to import an entire scene graph from another command file. This is helpful when creating a more complicated scene. Instead of writing all the commands in one file, one can create smaller pieces in separate files and then create a "main commands file" that imports them.
+
