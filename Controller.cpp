@@ -12,19 +12,23 @@ using namespace std;
 #include "sgraph/ScenegraphExporter.h"
 #include "sgraph/ScenegraphImporter.h"
 
-Controller::Controller(Model& m,View& v) {
+Controller::Controller(Model& m, View& v, const std::string& filePath) {
     model = m;
     view = v;
 
-    initScenegraph();
+    initScenegraph(filePath);
 }
 
-void Controller::initScenegraph() {
-
+void Controller::initScenegraph(const std::string& filePath) {
+    ifstream inFile(filePath);
+    if (!inFile) {
+        std::cerr << "Error opening file: " << filePath << std::endl;
+        exit(EXIT_FAILURE);
+    }
      
     
     //read in the file of commands
-    ifstream inFile("scenegraphmodels/face-hierarchy-commands.txt");
+    //ifstream inFile("scenegraphmodels/face-hierarchy-commands.txt");
     //ifstream inFile("tryout.txt");
     sgraph::ScenegraphImporter importer;
     

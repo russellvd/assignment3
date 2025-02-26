@@ -8,7 +8,7 @@
 class Controller: public Callbacks
 {
 public:
-    Controller(Model& m,View& v);
+    Controller(Model& m,View& v, const std::string& filePath);
     ~Controller();
     void run();
 
@@ -21,6 +21,8 @@ private:
 
     View view;
     Model model;
+
+    void initScenegraph(const std::string& filePath);
 };
 
 #endif

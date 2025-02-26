@@ -50,6 +50,7 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
         reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->reshape(width,height);
     });
 
+
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSwapInterval(1);

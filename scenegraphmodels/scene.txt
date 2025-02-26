@@ -1,0 +1,28 @@
+group scene scene
+
+
+
+# Load the floor / ground
+scale s-ground s-ground 1 1 1 
+add-child s-ground scene
+import ground-graph scenegraphmodels/base.txt
+add-child ground-graph s-ground
+
+
+# Load the tower 
+translate t-tower t-tower 15 87.5 15
+add-child t-tower scene
+
+scale s-tower s-tower .5 .5 .5 
+add-child s-tower t-tower
+
+import tower-graph scenegraphmodels/tower.txt
+add-child tower-graph s-tower
+
+# Load the Two People 
+translate t-humans t-humans -20 0 40  
+add-child t-humans scene
+import humans-graph scenegraphmodels/two-humans-commands.txt
+add-child humans-graph t-humans
+
+assign-root scene
