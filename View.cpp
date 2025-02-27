@@ -50,6 +50,13 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
         reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->reshape(width,height);
     });
 
+    glfwSetMouseButtonCallback(window,
+        [](GLFWwindow* window, int button, int action, int mods)
+        {
+            reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->onMouse(button,action,mods);
+        }
+    );
+
 
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -101,6 +108,9 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
 
     renderer = new sgraph::GLScenegraphRenderer(modelview,objects,shaderLocations);
     renderer_text = new sgraph::GLScenegraphTextRenderer(0);
+
+    counter = 0;
+    
 }
 
 
@@ -116,17 +126,31 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_FRONT_FACE);
 
-    
+    float rotation_time = 25.0 * glfwGetTime();
     
     modelview.push(glm::mat4(1.0));
     modelview.top() = modelview.top() * glm::lookAt(glm::vec3(200.0f,250.0f,250.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
+    
+    
+    // ROTATION
+    if (isRotating) {
+        modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rotation_time), glm::vec3(0.0f, 1.0f, 0.0f));
+    }
+    
+    
     //send projection matrix to GPU    
     glUniformMatrix4fv(shaderLocations.getLocation("projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
 
     //draw scene graph here
     scenegraph->getRoot()->accept(renderer);
-    scenegraph->getRoot()->accept(renderer_text);
+
+    // only output once text renderer to fix infinite loop
+    if (counter < 1) {
+        scenegraph->getRoot()->accept(renderer_text);
+        counter ++;
+    }
+    
     
     
     modelview.pop();
@@ -150,7 +174,13 @@ bool View::shouldWindowClose() {
     return glfwWindowShouldClose(window);
 }
 
+void View::rotate() {
+    isRotating = true;
+}
 
+void View::stopRotate() {
+    isRotating = false;
+}
 
 void View::closeWindow() {
     for (map<string,util::ObjectInstance *>::iterator it=objects.begin();

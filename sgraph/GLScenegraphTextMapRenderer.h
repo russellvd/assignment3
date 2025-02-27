@@ -20,7 +20,7 @@ namespace sgraph {
     class GLScenegraphTextRenderer: public SGNodeVisitor {
         public:
         /**
-         * @brief  new GLScenegraphTextRenderer object
+         * @brief Construct a new GLScenegraphTextRenderer object
          * 
          * @param indentLevel initial indentation level for rendering
          */
@@ -28,18 +28,15 @@ namespace sgraph {
             : indentLevel(indentLevel) {}
 
         /**
-         * @brief to the children for rendering
+         * @brief Recur to the children for rendering
          * 
          * @param groupNode 
          */
         void visitGroupNode(GroupNode *groupNode) {
-            if (!printed) {
-                printNodeName(groupNode->getName());
-                for (int i = 0; i < groupNode->getChildren().size(); i++) {
-                    GLScenegraphTextRenderer childRenderer(indentLevel + 1);
-                    groupNode->getChildren()[i]->accept(&childRenderer);
-                }
-                printed = true; // set flag to true after printing
+            printNodeName(groupNode->getName());
+            for (int i = 0; i < groupNode->getChildren().size(); i++) {
+                GLScenegraphTextRenderer childRenderer(indentLevel + 1);
+                groupNode->getChildren()[i]->accept(&childRenderer);
             }
         }
 
@@ -49,9 +46,7 @@ namespace sgraph {
          * @param leafNode 
          */
         void visitLeafNode(LeafNode *leafNode) {
-            if (!printed) {
-                printNodeName(leafNode->getName());
-            }
+            printNodeName(leafNode->getName());
         }
 
         /**
@@ -60,12 +55,10 @@ namespace sgraph {
          * @param transformNode 
          */
         void visitTransformNode(TransformNode *transformNode) {
-            if (!printed) {
-                printNodeName(transformNode->getName());
-                if (transformNode->getChildren().size() > 0) {
-                    GLScenegraphTextRenderer childRenderer(indentLevel + 1);
-                    transformNode->getChildren()[0]->accept(&childRenderer);
-                }
+            printNodeName(transformNode->getName());
+            if (transformNode->getChildren().size() > 0) {
+                GLScenegraphTextRenderer childRenderer(indentLevel + 1);
+                transformNode->getChildren()[0]->accept(&childRenderer);
             }
         }
 
@@ -98,7 +91,6 @@ namespace sgraph {
 
         private:
         int indentLevel;
-        static bool printed; // Static flag to track if the scene graph has been printed
 
         /**
          * @brief Helper to print the node name with appropriate indentation
@@ -112,9 +104,6 @@ namespace sgraph {
             std::cout << "- " << name << std::endl;
         }
     };
-
-    // initialize the static printed flag to false
-    bool GLScenegraphTextRenderer::printed = false;
 }
 
 #endif

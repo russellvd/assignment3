@@ -16,6 +16,8 @@ public:
     virtual void dispose();
     virtual void onkey(int key, int scancode, int action, int mods);
     virtual void error_callback(int error, const char* description);
+    virtual void onMouse(int button, int action, int mods);
+
 private:
     void initScenegraph();
 
@@ -23,6 +25,7 @@ private:
     Model model;
 
     void initScenegraph(const std::string& filePath);
+    bool mouseReleased = true;
 };
 
 #endif

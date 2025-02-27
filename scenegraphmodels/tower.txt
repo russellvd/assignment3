@@ -100,8 +100,8 @@ add-child scale-right-touret translate-right-touret
 add-child translate-right-touret root
 
 # Left Cylinder Connector
-translate translate-left-connector translate-left-connector -33 -70 33
-scale scale-left-connector scale-left-connector 3 175 3 # scale for touret
+translate translate-left-connector translate-left-connector -33 -100 33
+scale scale-left-connector scale-left-connector 3 200 3 # scale for touret
 leaf left-connector left-connector instanceof cylinder 
 assign-material left-connector dark-gray
 add-child left-connector scale-left-connector
@@ -110,18 +110,27 @@ add-child translate-left-connector root
 
 
 # Middle Cylinder Connector
-translate translate-middle-connector translate-middle-connector 45 -65 50
-scale scale-middle-connector scale-middle-connector 3 175 3 # scale for touret
+translate translate-middle-connector translate-middle-connector 33 -100 33
+scale scale-middle-connector scale-middle-connector 3 200 3 # scale for touret
 leaf middle-connector middle-connector instanceof cylinder 
 assign-material middle-connector dark-gray
 add-child middle-connector scale-middle-connector
 add-child scale-middle-connector translate-middle-connector
 add-child translate-middle-connector root
 
+# Back-Middle Cylinder Connector
+translate translate-back-middle-connector translate-back-middle-connector -33 -100 -33
+scale scale-back-middle-connector scale-back-middle-connector 3 200 3 # scale for touret
+leaf back-middle-connector back-middle-connector instanceof cylinder 
+assign-material back-middle-connector dark-gray
+add-child back-middle-connector scale-back-middle-connector
+add-child scale-back-middle-connector translate-back-middle-connector
+add-child translate-back-middle-connector root
+
 
 # Right Cylinder Connector
-translate translate-right-connector translate-right-connector 33 -70 -33
-scale scale-right-connector scale-right-connector 3 175 3 # scale for touret
+translate translate-right-connector translate-right-connector 33 -100 -33
+scale scale-right-connector scale-right-connector 3 200 3 # scale for touret
 leaf right-connector right-connector instanceof cylinder 
 assign-material right-connector dark-gray
 add-child right-connector scale-right-connector
@@ -156,6 +165,9 @@ add-child translate-right-connector root
 #  - translate-middle-connector
 #    - scale-middle-connector
 #      - middle-connector
+#  - translate-back-middle-connector
+#    - scale-back-middle-connector
+#      - back-middle-connector
 #  - translate-right-connector
 #    - scale-right-connector
 #      - right-connector

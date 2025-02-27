@@ -10,7 +10,7 @@ add-child ground-graph s-ground
 
 
 # Load the tower 
-translate t-tower t-tower 15 87.5 15
+translate t-tower t-tower -15 50 -30
 add-child t-tower scene
 
 scale s-tower s-tower .5 .5 .5 

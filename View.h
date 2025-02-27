@@ -27,6 +27,8 @@ public:
     void init(Callbacks* callbacks,map<string,util::PolygonMesh<VertexAttrib>>& meshes);
     void display(sgraph::IScenegraph *scenegraph);
     bool shouldWindowClose();
+    void rotate();
+    void stopRotate();
     void closeWindow();
 
 private: 
@@ -41,6 +43,8 @@ private:
     sgraph::SGNodeVisitor *renderer_text;
     int frames;
     double time;
+    bool isRotating = false;
+    int counter;
 };
 
 #endif
